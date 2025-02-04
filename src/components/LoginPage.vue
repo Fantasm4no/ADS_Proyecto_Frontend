@@ -31,22 +31,20 @@ export default {
     };
   },
   methods: {
-    // En el componente de Login (por ejemplo, LoginPage.vue)
     async login() {
+      console.log("Intentando iniciar sesión..."); // Depuración
       try {
-        const response = await axios.post('http://localhost:5000/api/auth/login', {
-          email: this.email,
-          password: this.password
+        const response = await axios.post("http://localhost:5000/api/auth/login", {
+          email: this.email, // Asegúrate de enviar "email"
+          password: this.password,
         });
-
-        // Almacenar el token JWT y el rol en localStorage
-        localStorage.setItem('token', response.data.token);
-        localStorage.setItem('role', response.data.role);  // Almacena el rol (admin, user)
-
-        // Redirigir al usuario a la página de inicio
-        this.$router.push('/');
+        console.log("Respuesta del backend:", response.data);
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem('role', response.data.role); 
+        this.$router.push("/"); // Redirigir al inicio
       } catch (error) {
-        this.errorMessage = 'Credenciales incorrectas. Intenta de nuevo.';
+        console.error("Error al iniciar sesión:", error.response?.data || error.message);
+        this.errorMessage = error.response?.data?.msg || "Error al iniciar sesión.";
       }
     }
   }

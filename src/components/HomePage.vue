@@ -1,7 +1,11 @@
 <template>
   <div class="home-container">
     <h2>Bienvenido al gimnasio</h2>
-    <LogoutButton />
+    
+    <div class="top-buttons">
+      <LogoutButton />
+      <button class="carrito-button" @click="goToSection('carrito')">🛒 Ver Carrito</button>
+    </div>
 
     <div class="buttons-container">
       <button @click="goToSection('rutinas')">Ver Rutinas</button>
@@ -17,6 +21,9 @@
 
     <!-- Sección Mensualidad -->
     <MensualidadComponent v-if="activeSection === 'mensualidad'" />
+
+    <!-- Sección Carrito -->
+    <CarritoComponent v-if="activeSection === 'carrito'" />
   </div>
 </template>
 
@@ -24,6 +31,7 @@
 import RutinasComponent from './RutinasComponent.vue';
 import ProductosComponent from './ProductosComponent.vue';
 import MensualidadComponent from './MensualidadComponent.vue';
+import CarritoComponent from './CarritoComponent.vue';
 import LogoutButton from './LogoutButton.vue';
 
 export default {
@@ -31,6 +39,7 @@ export default {
     RutinasComponent,
     ProductosComponent,
     MensualidadComponent,
+    CarritoComponent,
     LogoutButton
   },
   data() {
@@ -63,17 +72,25 @@ h2 {
   margin-bottom: 20px;
 }
 
-.logout-button {
-  background-color: #f44336;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-bottom: 30px;
+.top-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
-.logout-button:hover {
-  background-color: #d32f2f;
+/* Estilos del botón de carrito */
+.carrito-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.carrito-button:hover {
+  background-color: #0056b3;
 }
 
 .buttons-container {

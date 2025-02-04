@@ -31,7 +31,7 @@ const routes = [
     path: '/register',
     name: 'register',
     component: RegisterPage,
-  }
+  },
 ];
 
 const router = createRouter({

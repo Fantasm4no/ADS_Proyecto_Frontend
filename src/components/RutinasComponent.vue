@@ -70,7 +70,10 @@ export default {
     async fetchRutinas() {
       try {
         const response = await axios.get('http://localhost:5000/api/rutinas/hoy');
-        this.rutinas = response.data;
+        this.rutinas = response.data.map(rutina => ({
+          ...rutina,
+          id: rutina.id || null // Asegurar que cada rutina tenga su ID
+        }));
       } catch (error) {
         console.error('Error al cargar las rutinas:', error);
       }
@@ -79,12 +82,16 @@ export default {
     async saveChanges(index) {
       const rutina = this.rutinas[index];
       try {
-        // Aquí se hace la llamada a la API para actualizar la rutina
         await axios.put(`http://localhost:5000/api/rutinas/${rutina.id}`, {
+          dia: rutina.dia,
           ejercicio: rutina.ejercicio,
           repeticiones: rutina.repeticiones,
+          descripcion: rutina.descripcion,
+          nivel: rutina.nivel,
+          duracion: rutina.duracion,
+          recomendaciones: rutina.recomendaciones,
         });
-        alert(`Cambios guardados para ${rutina.dia}: ${rutina.ejercicio} ${rutina.repeticiones}`);
+        alert(`Cambios guardados para ${rutina.dia}: ${rutina.ejercicio} (${rutina.repeticiones} repeticiones)`);
       } catch (error) {
         console.error('Error al guardar cambios:', error);
       }
