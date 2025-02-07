@@ -1,6 +1,9 @@
 <template>
   <div class="login-container">
     <div class="login-form">
+      <div class="logo-container">
+        <img src="@/assets/logogym.jpg" alt="Logo EG FITNESS" class="logo-img" />
+      </div>
       <h2>Iniciar Sesión</h2>
       <form @submit.prevent="login">
         <div class="form-group">
@@ -20,6 +23,7 @@
 </template>
 
 <script>
+import { API_BASE_URL } from "../config.js";
 import axios from 'axios';
 
 export default {
@@ -34,7 +38,7 @@ export default {
     async login() {
       console.log("Intentando iniciar sesión..."); // Depuración
       try {
-        const response = await axios.post("http://localhost:5000/api/auth/login", {
+        const response = await axios.post(`${API_BASE_URL}/api/auth/login`, {
           email: this.email, // Asegúrate de enviar "email"
           password: this.password,
         });
@@ -52,13 +56,34 @@ export default {
 </script>
 
 <style scoped>
+/* Contenedor del logo */
+.logo-container {
+  display: flex;
+  align-items: center; /* Alinear logo y texto verticalmente */
+  justify-content: center; /* Alinear horizontalmente */
+  gap: 10px; /* Espacio entre la imagen y el texto */
+}
+
+/* Imagen del logo en forma redonda */
+.logo-img {
+  width: 175px; /* Ajusta el tamaño del logo */
+  height: 175px;
+  object-fit: cover; /* Asegura que la imagen cubra todo el espacio sin deformarse */
+  border-radius: 50%; /* Hace que la imagen sea completamente redonda */
+  border: 2px solid black; /* (Opcional) Agregar un borde blanco para mejor visualización */
+}
+
+
 /* Estilo para el contenedor principal */
 .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f4f4f9; /* Fondo gris claro */
+  background-image: url('@/assets/fondo3.jpg'), url('@/assets/fondo3.jpg'); /* Misma imagen para ambas mitades */
+  background-size: 50% 100%; /* Cada imagen ocupa la mitad horizontal */
+  background-position: left, right; /* Una imagen a la izquierda y otra a la derecha */
+  background-repeat: no-repeat;
 }
 
 .login-form {

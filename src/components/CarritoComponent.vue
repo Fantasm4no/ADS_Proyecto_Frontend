@@ -4,9 +4,17 @@
     <div v-if="carrito.length > 0">
       <div v-for="item in carrito" :key="item.id" class="carrito-item">
         <img :src="item.imagen_url" :alt="item.nombre" class="carrito-imagen" />
+
         <h4>{{ item.nombre }}</h4>
         <p><strong>Precio unitario:</strong> ${{ item.precio }}</p>
-        <p>
+
+        <!-- Si el item es una membresía, cantidad fija en 1 sin input -->
+        <p v-if="esMembresia(item.nombre)">
+          <strong>Cantidad:</strong> 1
+        </p>
+
+        <!-- Si el item es un producto, permitir modificar cantidad -->
+        <p v-else>
           <strong>Cantidad:</strong>
           <input
             type="number"
@@ -15,7 +23,8 @@
             @change="actualizarCantidad(item.id, item.cantidad)"
           />
         </p>
-        <p><strong>Total:</strong> ${{ item.precio * item.cantidad }}</p>
+
+        <p><strong>Total:</strong> ${{ (item.precio * item.cantidad).toFixed(2) }}</p>
         <button @click="eliminarProducto(item.id)">Eliminar</button>
       </div>
       <div class="total">
@@ -29,6 +38,7 @@
 
 <script>
 import axios from "axios";
+import { API_BASE_URL } from "../config.js";
 import { jwtDecode } from "jwt-decode";
 
 export default {
@@ -37,6 +47,7 @@ export default {
     return {
       carrito: [],
       clienteId: null,
+      nombresMembresias: ["Plan Básico", "Plan Premium", "Plan VIP"], // Nombres de membresías
     };
   },
   async created() {
@@ -71,14 +82,19 @@ export default {
 
     async obtenerCarrito() {
       try {
-        const response = await axios.get("http://localhost:5000/api/carrito", {
+        const response = await axios.get(`${API_BASE_URL}/api/carrito`, {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
+        console.log("Datos del carrito:", response.data);
         this.carrito = response.data;
       } catch (error) {
         console.error("Error al obtener el carrito:", error);
         alert("Hubo un problema al cargar el carrito.");
       }
+    },
+
+    esMembresia(nombre) {
+      return this.nombresMembresias.includes(nombre);
     },
 
     async actualizarCantidad(id, cantidad) {
@@ -88,7 +104,7 @@ export default {
       }
       try {
         await axios.put(
-          `http://localhost:5000/api/carrito/${id}`,
+          `${API_BASE_URL}/api/carrito/${id}`,
           { cantidad },
           { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
         );
@@ -102,7 +118,7 @@ export default {
 
     async eliminarProducto(id) {
       try {
-        await axios.delete(`http://localhost:5000/api/carrito/${id}`, {
+        await axios.delete(`${API_BASE_URL}/api/carrito/${id}`, {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
         this.carrito = this.carrito.filter((item) => item.id !== id);
@@ -117,19 +133,6 @@ export default {
       return this.carrito
         .reduce((total, item) => total + item.precio * item.cantidad, 0)
         .toFixed(2);
-    },
-
-    async vaciarCarritoBackend() {
-      try {
-        await axios.delete("http://localhost:5000/api/carrito", {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        });
-        this.carrito = [];
-        alert("El carrito se ha vaciado correctamente.");
-      } catch (error) {
-        console.error("Error al vaciar el carrito:", error);
-        alert("No se pudo vaciar el carrito.");
-      }
     },
 
     async finalizarCompra() {
@@ -147,17 +150,17 @@ export default {
 
         // Llamar al backend para finalizar la compra
         await axios.post(
-          "http://localhost:5000/api/carrito/finalizar-compra",
-          { cliente_id: this.clienteId },
+          `${API_BASE_URL}/api/carrito/finalizar-compra`,
+          { cliente_id: this.clienteId },  // 👈 Enviar cliente_id correctamente
           { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
         );
 
         alert(`Compra finalizada con éxito. Total pagado: $${total}`);
         this.carrito = []; // Vaciar el carrito localmente
       } catch (error) {
+        console.error("Error al finalizar la compra:", error);
         const errorMsg = error.response?.data?.msg || "Hubo un problema al finalizar la compra.";
         alert(errorMsg);
-        console.error("Error al finalizar la compra:", error);
       }
     },
   },

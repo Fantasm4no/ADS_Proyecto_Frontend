@@ -32,6 +32,7 @@
   </div>
 </template>
 <script>
+import { API_BASE_URL } from "../config.js";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 
@@ -75,7 +76,7 @@ export default {
 
     async fetchProductos() {
       try {
-        const response = await axios.get("http://localhost:5000/api/products");
+        const response = await axios.get(`${API_BASE_URL}/api/products`);
         console.log("Productos recibidos en el frontend:", response.data); // Log para depuración
         this.productos = response.data;
       } catch (error) {
@@ -96,7 +97,7 @@ export default {
       }
 
       try {
-        await axios.put(`http://localhost:5000/api/products/${producto.id}`, {
+        await axios.put(`${API_BASE_URL}/api/products/${producto.id}`, {
           nombre: producto.nombre,
           descripcion: producto.descripcion,
           precio: producto.precio,
@@ -134,7 +135,7 @@ export default {
 
       try {
         await axios.post(
-          "http://localhost:5000/api/carrito",
+          `${API_BASE_URL}/api/carrito`,
           { cliente_id: this.clienteId, producto_id: producto.id, cantidad: 1 },
           { headers: { Authorization: `Bearer ${token}` } }
         );

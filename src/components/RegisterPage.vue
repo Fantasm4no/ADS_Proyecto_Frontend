@@ -26,6 +26,7 @@
 
 <script>
 import axios from 'axios';
+import { API_BASE_URL } from "../config.js";
 
 export default {
   data() {
@@ -39,7 +40,7 @@ export default {
   methods: {
     async register() {
       try {
-        const response = await axios.post('http://localhost:5000/api/auth/register', {
+        const response = await axios.post(`${API_BASE_URL}/api/auth/register`, {
           nombre: this.nombre,
           email: this.email,
           password: this.password,
@@ -68,6 +69,10 @@ export default {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  background-image: url('@/assets/fondo3.jpg'), url('@/assets/fondo3.jpg'); /* Misma imagen para ambas mitades */
+  background-size: 50% 100%; /* Cada imagen ocupa la mitad horizontal */
+  background-position: left, right; /* Una imagen a la izquierda y otra a la derecha */
+  background-repeat: no-repeat;
 }
 
 .form-box {

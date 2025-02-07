@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router';
 import LoginPage from '../components/LoginPage.vue';
 import RegisterPage from '../components/RegisterPage.vue';
 import HomePage from '../components/HomePage.vue';  // Asegúrate de tener este componente
+import InformacionLegal from '../components/InformacionLegal.vue';
+import HistorialComponent from '../components/HistorialComponent.vue'
 
 // Función para verificar si el usuario está autenticado
 function isAuthenticated() {
@@ -27,6 +29,16 @@ const routes = [
     name: 'login',
     component: LoginPage,
   },
+  {
+    path: "/informacion-legal",
+    name: "InformacionLegal",
+    component: InformacionLegal,
+  },  
+  {
+    path: "/historial-component",
+    name: "HistorialComponent",
+    component: HistorialComponent,
+  }, 
   {
     path: '/register',
     name: 'register',
