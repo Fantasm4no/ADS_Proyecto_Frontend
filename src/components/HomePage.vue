@@ -139,7 +139,7 @@ export default {
   font-size: 1rem;
   border-radius: 5px;
   text-align: center;
-  background-color:rgb(69, 120, 160);
+  background-color:rgb(53, 99, 133);
 }
 
 /* Sección de bienvenida */
