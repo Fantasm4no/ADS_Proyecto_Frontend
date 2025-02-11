@@ -125,7 +125,7 @@ Si deseas acceder al backend desde otra máquina en la misma red, es necesario c
 3. Copia la dirección IPv4 de la conexión activa (por ejemplo, `192.168.1.100`).
 4. Abre el archivo `frontend\src\config.js` y actualiza la variable `API_URL` con la IP obtenida:
    ```js
-   export const API_URL = "http://192.168.1.100:5000";
+     : "http://192.xx.x.xx:5000"; // Aqui deberia ir tu Ip local
    ```
 
 ## 6. Explicación del Funcionamiento de la Aplicación
