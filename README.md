@@ -145,7 +145,7 @@ La aplicación `EG Fitness Gym` permite:
 
 ---
 
-## 6. Notas Adicionales
+## 7. Notas Adicionales
 
 - Es importante cambiar las credenciales en `.env` y `db.js`.
 - Se recomienda ejecutar la aplicación en un entorno de desarrollo antes de desplegarla en producción.
