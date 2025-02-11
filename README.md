@@ -1,4 +1,4 @@
-# Instrucciones para Configurar la Base de Datos y Ejecutar la Aplicación
+f# Instrucciones para Configurar la Base de Datos y Ejecutar la Aplicación
 
 ## 1. Creación Manual de la Base de Datos en pgAdmin
 
@@ -78,7 +78,7 @@ Para ejecutar la aplicación correctamente, es necesario configurar las credenci
 
 Para ejecutar la aplicación, sigue estos pasos:
 
-1. Asegúrate de haber clonado el repositorio e instalado **Node.js** y **npm**.
+1. Asegúrate de haber instalado **Node.js** y **npm**.
 2. Abre una terminal y navega hasta la carpeta del backend con:
    ```sh
    cd ADS_Proyecto/Backend
