@@ -1,4 +1,5 @@
-f# Instrucciones para Configurar la Base de Datos y Ejecutar la Aplicación
+# Instrucciones para Configurar la Base de Datos y Ejecutar la Aplicación
+Primeramnete debes clonar los dos repositorios "ADS_Proyecto" y el repositorio "frontend" en una sola carpeta.
 
 ## 1. Creación Manual de la Base de Datos en pgAdmin
 
