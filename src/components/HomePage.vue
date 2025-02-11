@@ -132,7 +132,6 @@ export default {
   gap: 10px;
 }
 
-.top-buttons button,
 .carrito-button {
   padding: 10px 20px;
   min-width: 140px;
@@ -140,6 +139,7 @@ export default {
   font-size: 1rem;
   border-radius: 5px;
   text-align: center;
+  background-color:rgb(69, 120, 160);
 }
 
 /* Sección de bienvenida */
