@@ -1,6 +1,7 @@
 <template>
   <div class="section">
     <h3>Planes de Mensualidad</h3>
+    <p class="descuento">10% de descuento para membresia Vip y Premium</p>
     <div class="mensualidades">
       <div class="mensualidad" v-for="membresia in membresias" :key="membresia.id">
         <img :src="membresia.imagen_url" :alt="membresia.nombre" class="mensualidad-imagen" />
@@ -159,6 +160,10 @@ export default {
   font-size: 1rem;
   margin: 5px 0;
 }
+.descuento {
+    color: red;
+}
+
 
 input, textarea {
   width: 100%;
@@ -183,4 +188,5 @@ button {
 button:hover {
   background-color: #218838;
 }
+
 </style>
